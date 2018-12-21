@@ -1,0 +1,51 @@
+server:
+  port: 9001
+
+FaceCloud:
+  MQNameServer: 106.12.80.31:9876
+  ConsumerGroupName: face
+
+spring:
+  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/face?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true&useTimezone=true&serverTimezone=GMT%2B8
+      username: face
+      password: face
+      filters: stat
+      initial-size: 10
+      minIdle: 1
+      maxActive: 200
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+      #  exclusions: *.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
+        session-stat-enable: true
+        session-stat-max-count: 100000
+        principal-session-name: admin
+        principal-cookie-name: admin
+        profile-enable: true
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: admin
+        login-password: admin
+        allow: 127.0.0.1
+
+
+
+FaceRecognition:
+  server: http://10.0.0.19:8300
+  appid: GuiYang
+  groupid: single
