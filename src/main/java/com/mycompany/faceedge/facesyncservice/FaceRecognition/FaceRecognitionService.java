@@ -17,10 +17,9 @@ public class FaceRecognitionService {
     @Value("${FaceRecognition.appid}")
     private String appid;
 
-    @Value("${FaceRecognition.groupid}")
-    private String groupID;
 
-    public boolean addFace(String orderID, String faceImage) {
+
+    public boolean addFace(String groupID, String orderID, String faceImage) {
         String url = faceRecognitionServer + "/face-api/v3/face/add?appid={1}";
 
         JSONObject postData = new JSONObject();
@@ -34,6 +33,7 @@ public class FaceRecognitionService {
 
 
         JSONObject response = restTemplate.postForEntity(url, postData, JSONObject.class, appid).getBody();
+        System.out.println(response.toJSONString());
         int error_code = response.getIntValue("error_code");
 
         if (error_code == 0) {
@@ -45,7 +45,7 @@ public class FaceRecognitionService {
 
         return false;
     }
-
+/*
     public boolean deleteFace(String orderID) {
         String url = faceRecognitionServer + "/face-api/v3/user/delete?appid={1}";
 
@@ -66,5 +66,5 @@ public class FaceRecognitionService {
 
         return false;
     }
-
+*/
 }
